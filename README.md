@@ -46,6 +46,11 @@ The text after the `#` is considered a shell command and is executed with the `s
 
 The command `import` is specially handled as a recursive call to **inlinesh** (`cat` can be used to just echo the contents of a file).
 
+### Options
+
+- `-f` `--force`: do not terminate if a file cannot be found
+- `-c CHAR` `--command CHAR`: use the `CHAR` instead of the `#` as command prefix 
+
 ## Install
 
 ```
