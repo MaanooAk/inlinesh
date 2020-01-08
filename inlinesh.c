@@ -13,7 +13,7 @@ int command(char* line, size_t size);
 	if (error != 0) return error;
 
 #define error(error, message, x) \
-	fprintf(stderr, "inlinebash: " message "\n", x); \
+	fprintf(stderr, "inlinesh: " message "\n", x); \
 	return error;
 
 // ===
@@ -25,7 +25,7 @@ int handle(char* file) {
 		error(0, "file not found: %s", file);
 	}
 
-	char *buffer; // TODO malloc
+	char *buffer; // this will be allocated by getline
 	size_t size = 0, count = 0;
 
 	while ((count = getline(&buffer, &size, f)) != -1) {
@@ -45,7 +45,7 @@ int handle(char* file) {
 
 int command(char* line, size_t size) {
 
-	char origin[size]; // this will be mutatted
+	char origin[size]; // this will be altered by strsep
 	strcpy(origin, line + 1); // skip the #
 
 	char *tmp = origin;
@@ -60,21 +60,26 @@ int command(char* line, size_t size) {
 }
 
 int main(int argc, char *argv[]) {
+	int files = 0;
 
-	if (argc == 1) {
-		propagate(handle(0)); // stdin
-
-	} else for (int i=1; i<argc; i++) {
+	for (int i=1; i<argc; i++) {
 		char* param = argv[i];
+
+		// TODO support options
 
 		if (param[0] == '-') {
 			error(102, "option not supported: %s", param);
 
 		} else {
+			files++;
 			propagate(handle(param));
 		}
 	}
 
-	return 0;
+	if (files == 0) {
+		// no files where provided
+		propagate(handle(0)); // stdin
+	}
+
 }
 
