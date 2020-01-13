@@ -46,6 +46,8 @@ The text after the `#` is considered a shell command and is executed with the `s
 
 The command `import` is specially handled as a recursive call to **inlinesh** (`cat` can be used to just echo the contents of a file).
 
+The command `include` is hadled as `import` but it keeps track of the files that have been included. The second time the same file is given, the command is ignored.
+
 ### Options
 
 - `-f` `--force`: do not terminate if a file cannot be found
