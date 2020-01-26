@@ -40,7 +40,7 @@ int handle(char* file) {
 			fflush(stdout); // keep the order
 			propagate(command(buffer, size));
 		} else {
-			printf(buffer);
+			printf("%s", buffer);
 		}
 	}
 
