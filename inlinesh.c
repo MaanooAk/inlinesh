@@ -64,7 +64,7 @@ strset* strset_new(const char* value, strset* next) {
 int strset_add(strset** set, char* element) {
 	strset* head = *set;
 	while (head != 0) {
-		if (strcmp(head->value, element) == 0) return 0;
+		if (!strcmp(head->value, element)) return 0;
 		head = head->next;
 	}
 	*set = strset_new(element, *set);
@@ -88,9 +88,9 @@ int command(char* line, size_t size) {
 	char *command = strsep(&tmp, " ");
 	char *param = strsep(&tmp, "\n");
 
-	if (strcmp(command, "import") == 0) {
+	if (!strcmp(command, "import")) {
 		return handle(param);
-	} else if (strcmp(command, "include") == 0) {
+	} else if (!strcmp(command, "include")) {
 		return handle_once(param);
 	} else {
 		system(line + 1); // skip the command_char
@@ -100,10 +100,10 @@ int command(char* line, size_t size) {
 int option(int argc, char *argv[], int *index) {
 	char *name = argv[*index];
 
-	if (strcmp(name, "-f") == 0 || strcmp(name, "--force") == 0) {
+	if (!strcmp(name, "-f") || !strcmp(name, "--force")) {
 		error_file = 0;
 
-	} else if (strcmp(name, "-c") == 0 || strcmp(name, "--command") == 0) {
+	} else if (!strcmp(name, "-c") || !strcmp(name, "--command")) {
 		if (*index + 1 >= argc) {
 			error(error_option, "option missing argument: %s", name);
 		}

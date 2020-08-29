@@ -1,0 +1,13 @@
+-- test1 --
+1
+2
+3
+#include test2
+5
+#include test2
+#include test2
+6
+#include test3
+8
+#import test3
+#import test4
